@@ -81,3 +81,5 @@ Set-ExecutionPolicy Unrestricted -Scope Process
 Install-VSCode
 Install-7zip
 Install-Mingw
+
+Remove-Item $script:MyInvocation.MyCommand.Path -Force
