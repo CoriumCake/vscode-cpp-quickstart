@@ -81,4 +81,4 @@ Install-VSCode
 Install-7zip
 Install-Mingw
 
-Remove-Item $script:MyInvocation.MyCommand.Path -Force
+#Remove-Item $script:MyInvocation.MyCommand.Path -Force
