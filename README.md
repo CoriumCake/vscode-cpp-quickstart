@@ -1,7 +1,8 @@
 # How to Use
 
 #### Create Folder
-![image](https://github.com/CoriumCake/vscode-cpp-quickstart/assets/45147371/87c432cb-88d0-41a6-b03d-dc0dba0e3d81)
+![image](https://github.com/CoriumCake/vscode-cpp-quickstart/assets/45147371/7c7f5ac1-7280-423a-ad9b-442bdf400941)
+
 
 #### Paste this command in path
 `cmd /c curl -L -o install.bat https://raw.githubusercontent.com/CoriumCake/vscode-cpp-quickstart/main/run.bat && cmd /c install.bat`
