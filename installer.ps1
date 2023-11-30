@@ -84,4 +84,7 @@ Install-VSCode
 Install-7zip
 Install-Mingw
 
+[Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
+[System.Windows.Forms.MessageBox]::Show("Installation completed!", "Alert", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+
 Remove-Item $script:MyInvocation.MyCommand.Path -Force
