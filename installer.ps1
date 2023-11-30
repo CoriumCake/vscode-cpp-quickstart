@@ -28,23 +28,23 @@ function Install-7zip {
 
         $7zipPath = (Get-Item -Path ".\7zip\7-Zip").FullName
 
-        $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine) -split ';' | Where-Object {$_ -eq $7zipPath}
+        $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) -split ';' | Where-Object {$_ -eq $7zipPath}
 
         if (-not $pathExists) {
-            [System.Environment]::SetEnvironmentVariable("Path", "$7zipPath;$env:Path", [System.EnvironmentVariableTarget]::Machine)
-            Write-Host "7zip env added`n"
+            $newPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) + ";$7zipPath"
+            [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::User)
+            Write-Host "7zip env added to user`n"
         } else {
-            Write-Host "7zip env already exists`n"
+            Write-Host "7zip env already exists in user`n"
         }
 
         Remove-Item ".\7zip.zip" -Force
-
     }
 }
 
 function Install-Mingw {
     if (Test-Path -Path ".\mingw64") {
-        Write-Host "Mingw installed"
+        Write-Host "Mingw installed`n"
     } elseif (!(Test-Path -Path ".\mingw.7z")) {
         Write-Host "Downloading mingw`n"
         $ProgressPreference = 'SilentlyContinue'
@@ -61,15 +61,16 @@ function Install-Mingw {
 
         $mingwPath = (Get-Item -Path ".\mingw64\bin").FullName
 
-        $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine) -split ';' | Where-Object {$_ -eq $mingwPath}
+        $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) -split ';' | Where-Object {$_ -eq $mingwPath}
 
         if (-not $pathExists) {
-            $newPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine) + ";$mingwPath"
-            [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::Machine)
-            Write-Host "Mingw env added`n"
+            $newPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) + ";$mingwPath"
+            [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::User)
+            Write-Host "Mingw env added to user`n"
         } else {
-            Write-Host "Mingw env already exists`n"
+            Write-Host "Mingw env already exists in user`n"
         }
+
         Remove-Item ".\mingw.7z" -Force
     }
 }
@@ -80,5 +81,3 @@ Set-ExecutionPolicy Unrestricted -Scope Process
 Install-VSCode
 Install-7zip
 Install-Mingw
-
-#Remove-Item $script:MyInvocation.MyCommand.Path -Force
