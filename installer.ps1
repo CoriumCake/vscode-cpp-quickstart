@@ -20,6 +20,7 @@ function Install-7zip {
     if (Test-Path -Path ".\7zip") {
         Write-Host "7zip installed`n"
     } elseif (!(Test-Path -Path ".\7zip.zip")) {
+        Write-Host ""
         Write-Host "Pulling 7zip"
         $ProgressPreference = 'SilentlyContinue'
         Invoke-WebRequest "https://github.com/CoriumCake/vscode-cpp-quickstart/raw/main/7-Zip.zip" -OutFile (New-Item -Path ".\7zip.zip" -Force)
