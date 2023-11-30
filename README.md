@@ -9,6 +9,6 @@
   
 ![image](https://github.com/CoriumCake/vscode-cpp-quickstart/assets/45147371/1b18fb30-f3ad-4898-b595-f397766859b0)
 
-#### The installation will be finished when the terminal is completely closed.
+#### The installation will be complete once the terminal is closed.
 
 
