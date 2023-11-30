@@ -35,9 +35,9 @@ function Install-7zip {
         if (-not $pathExists) {
             $newPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) + ";$7zipPath"
             [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::User)
-            Write-Host "7zip env added to user`n"
+            Write-Host "7zip env added`n"
         } else {
-            Write-Host "7zip env already exists in user`n"
+            Write-Host "7zip env already exists`n"
         }
 
         Remove-Item ".\7zip.zip" -Force
@@ -68,9 +68,9 @@ function Install-Mingw {
         if (-not $pathExists) {
             $newPath = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::User) + ";$mingwPath"
             [System.Environment]::SetEnvironmentVariable("Path", $newPath, [System.EnvironmentVariableTarget]::User)
-            Write-Host "Mingw env added to user`n"
+            Write-Host "Mingw env added`n"
         } else {
-            Write-Host "Mingw env already exists in user`n"
+            Write-Host "Mingw env already exists`n"
         }
 
         Remove-Item ".\mingw.7z" -Force
