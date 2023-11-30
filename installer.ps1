@@ -72,6 +72,7 @@ function Install-Mingw {
 }
 
 Clear-Host
+Set-ExecutionPolicy Unrestricted -Scope Process
 
 Install-VSCode
 Install-7zip
