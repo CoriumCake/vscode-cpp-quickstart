@@ -85,6 +85,6 @@ Install-7zip
 Install-Mingw
 
 [Reflection.Assembly]::LoadWithPartialName("System.Windows.Forms")
-[System.Windows.Forms.MessageBox]::Show("Installation completed!", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
+[System.Windows.Forms.MessageBox]::Show("Installation completeed!", [System.Windows.Forms.MessageBoxButtons]::OK, [System.Windows.Forms.MessageBoxIcon]::Information)
 
 Remove-Item $script:MyInvocation.MyCommand.Path -Force
