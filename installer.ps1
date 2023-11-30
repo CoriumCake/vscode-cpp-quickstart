@@ -3,13 +3,13 @@ function Install-VSCode {
 
     if ($null -ne $vscodeInstallationPath -and $vscodeInstallationPath.PSIsContainer) {
         if (Test-Path "VSCodeUserSetup.exe") {
-            Write-Host "VSCode installer downloaded`n"
+            Write-Host "VSCodeUserSetup downloaded`n"
         } else {
             # Download VSCode
-            Write-Host "Pulling VSCodeUserSetup.exe"
+            Write-Host "Pulling VSCodeUserSetup"
             $ProgressPreference = 'SilentlyContinue'
             Invoke-WebRequest "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user" -OutFile (New-Item -Path "VSCodeUserSetup.exe" -Force)
-            Write-Host "VSCode installer downloaded`n"
+            Write-Host "VSCodeUserSetup downloaded`n"
         }
     } else {
         Write-Host "VSCode installed`n"
@@ -26,19 +26,19 @@ function Install-7zip {
         Expand-Archive -Force .\7zip.zip 
         Write-Host "7zip installed`n"
 
-        # Get the full path of the 7-Zip directory
         $7zipPath = (Get-Item -Path ".\7zip\7-Zip").FullName
 
-        # Check if the 7-Zip directory is already in the system PATH
         $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine) -split ';' | Where-Object {$_ -eq $7zipPath}
 
         if (-not $pathExists) {
-            # Add the 7-Zip directory to the system PATH
             [System.Environment]::SetEnvironmentVariable("Path", "$7zipPath;$env:Path", [System.EnvironmentVariableTarget]::Machine)
-            Write-Host "7zip directory added to the system PATH`n"
+            Write-Host "7zip env added`n"
         } else {
-            Write-Host "7zip directory is already in the system PATH`n"
+            Write-Host "7zip env already exists`n"
         }
+
+        Remove-Item ".\7zip.zip" -Force
+
     }
 }
 
@@ -46,19 +46,19 @@ function Install-Mingw {
     if (Test-Path -Path ".\mingw64") {
         Write-Host "Mingw installed"
     } elseif (!(Test-Path -Path ".\mingw.7z")) {
-        Write-Host "Downloading mingw.7z`n"
+        Write-Host "Downloading mingw`n"
         $ProgressPreference = 'SilentlyContinue'
         Invoke-WebRequest "https://github.com/niXman/mingw-builds-binaries/releases/download/13.2.0-rt_v11-rev1/x86_64-13.2.0-release-mcf-seh-ucrt-rt_v11-rev1.7z" -OutFile (New-Item -Path ".\mingw.7z" -Force)
-        Write-Host "mingw.7z downloaded`n"
+        Write-Host "Mingw downloaded`n"
     }
 
     if (Test-Path -Path ".\mingw.7z") {
+        Write-Host ""
         Write-Host "Extracting mingw.7z`n"
-        # Use 7zip to extract the contents of the 7z file
         & ".\7zip\7-Zip\7z.exe" x -o"." ".\mingw.7z" -r -y
+        Write-Host ""
         Write-Host "Mingw installed`n"
 
-        # Get the full path of the Mingw directory
         $mingwPath = (Get-Item -Path ".\mingw64\bin").FullName
 
         $pathExists = [System.Environment]::GetEnvironmentVariable("Path", [System.EnvironmentVariableTarget]::Machine) -split ';' | Where-Object {$_ -eq $mingwPath}
@@ -70,6 +70,7 @@ function Install-Mingw {
         } else {
             Write-Host "Mingw env already exists`n"
         }
+        Remove-Item ".\mingw.7z" -Force
     }
 }
 
