@@ -85,5 +85,3 @@ Install-7zip
 Install-Mingw
 
 Remove-Item $script:MyInvocation.MyCommand.Path -Force
-
-Read-Host "Done!! press enter to exit"
