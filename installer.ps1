@@ -1,19 +1,9 @@
-function Install-VSCode {
-    $vscodeInstallationPath = Get-Item -Path "C:\Program Files\Microsoft VS Code" -ErrorAction SilentlyContinue
-
-    if ($null -ne $vscodeInstallationPath -and $vscodeInstallationPath.PSIsContainer) {
-        if (Test-Path "VSCodeUserSetup.exe") {
-            Write-Host "VSCodeUserSetup downloaded`n"
-        } else {
-            # Download VSCode
-            Write-Host "Pulling VSCodeUserSetup"
-            $ProgressPreference = 'SilentlyContinue'
-            Invoke-WebRequest "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user" -OutFile (New-Item -Path "VSCodeUserSetup.exe" -Force)
-            Write-Host "VSCodeUserSetup downloaded`n"
-        }
-    } else {
-        Write-Host "VSCode installed`n"
-    }
+function Download-VSCode {
+    # Download VSCode
+    Write-Host "Pulling VSCodeUserSetup"
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64-user" -OutFile (New-Item -Path "VSCodeUserSetup.exe" -Force)
+    Write-Host "VSCodeUserSetup downloaded`n"
 }
 
 function Install-7zip {
@@ -80,7 +70,7 @@ function Install-Mingw {
 Clear-Host
 Set-ExecutionPolicy Unrestricted -Scope Process
 
-Install-VSCode
+Download-VSCode
 Install-7zip
 Install-Mingw
 
